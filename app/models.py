@@ -1,6 +1,7 @@
 from sqlalchemy import MetaData, Table, Column, Integer,  Float, create_engine, Date, Insert
 from config import Config
 
+
 engine = create_engine(Config.SQLALCHEMY_DATABASE_URI)
 metadata = MetaData()
 
