@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, redirect, url_for
 from app.init import app
 from app.forms import LoginForm, TrackerForm
 from app.models import *
@@ -28,8 +28,14 @@ def login():
 
 @app.route('/tracker', methods=['GET', 'POST'])
 def tracker():
+    # need a list of tuples for dynamic select field in form
+    ids = []
+    for i in range(0, len(list_table())):
+        ids.append(i)
+    table_list = [(ids[i], list_table()[i]) for i in range(0, len(list_table()))]
+
     form = TrackerForm()
-    table = form.name.data
+    form.name.choices = table_list
     data_to_insert = {"date": form.date.data,
                       "calories": form.calories.data,
                       "push_ups": form.push_ups.data,
@@ -38,6 +44,7 @@ def tracker():
                       "miles_ran": form.miles_ran.data
                       }
     if form.validate_on_submit():
+        table = table_list[form.name.data][1]
         insert_data(data_to_insert, table)
         return redirect(url_for('index'))
-    return render_template('tracker.html',  title='Tacker', form=form)
+    return render_template('tracker.html', title='Tracker', form=form)

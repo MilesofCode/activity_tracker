@@ -19,7 +19,7 @@ def return_table(table_name):
     return metadata.tables[table_name]
 
 
-def create_table(table_name="Miles"):
+def create_table(table_name):
     personal_table = Table(
             table_name,
             metadata,
@@ -35,9 +35,7 @@ def create_table(table_name="Miles"):
 
 
 # Insert data in table
-def insert_data(data, table_name="Miles"):
-    print(type(data))
-    print(data)
+def insert_data(data, table_name):
     with engine.connect() as conn:
         result = conn.execute(Insert(return_table(table_name)),
                               [

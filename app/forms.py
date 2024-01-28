@@ -10,7 +10,8 @@ class LoginForm(FlaskForm):
 
 
 class TrackerForm(FlaskForm):
-    name = SelectField('name', choices=list_table(), validators=[DataRequired()])
+    # name = SelectField('name', choices=list_table(), validators=[DataRequired()])
+    name = SelectField('name', coerce=int, validate_choice=[DataRequired()])
     date = DateField('Date', validators=[DataRequired()])
     calories = IntegerField('Calories', validators=[DataRequired()])
     push_ups = IntegerField('Push Ups', validators=[DataRequired()])
