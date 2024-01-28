@@ -14,14 +14,14 @@ services:
     image: grafana/grafana
     restart: unless-stopped
     ports:
-      - 8080:8080
+      - 3000:3000
 
 
   flask:
     build: .
     restart: unless-stopped
     environment:
-      DATABASE_URL: mysql+mysqldb://root:admin@db:3306/Activities
+      DATABASE_URL: mysql+pymysql://root:admin@db:3306/Activities
     ports:
       - 5000:5000
     depends_on:
